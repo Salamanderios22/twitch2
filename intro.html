@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>SALAMANDER - 1:26 MIN FIX (V17)</title>
+    <style>
+        :root {
+            --willi-yellow: #fff200; --willi-blue: #0054a6; --willi-red: #e30613;
+            --border-neon: #00ffff; --bg: #1a1a1a;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 1920px; height: 1080px;
+            background: var(--bg); overflow: hidden;
+            font-family: "Arial Black", "Impact", sans-serif; text-transform: uppercase;
+        }
+
+        #stage {
+            position: relative; width: 100%; height: 100%;
+            border: 15px solid var(--willi-blue); box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        @keyframes shake { 0%, 100% { transform: translate(0,0); } 20% { transform: translate(-10px,5px); } 40% { transform: translate(10px,-5px); } }
+        .do-shake { animation: shake 0.1s infinite; }
+        
+        @keyframes rgb { 0% { text-shadow: -5px 0 var(--willi-red), 5px 0 var(--border-neon); } 100% { text-shadow: -10px 0 var(--willi-red), 10px 0 var(--border-neon); } }
+        .do-rgb { animation: rgb 0.1s infinite alternate; }
+
+        .img-asset {
+            width: 100%; height: 100%; background-size: cover; background-position: center;
+            position: absolute; top: 0; left: 0; display: none;
+        }
+        
+        /* REPARIERTE BILDER-LINKS */
+        .i-fmc { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460173344388284593/Screenshot_2026-01-12_082246.png?ex=6965f3e6&is=6964a266&hm=558d6fe2c627a1cb85c816d3f5b8f87a897dbd195e2b597359915b998a2d31b1'); }
+        .i-dance { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460174429643608134/image.png?ex=6965f4e8&is=6964a368&hm=116a73e636e9263898d2437e679a4ff3aa43c81657c97cdc498a2748a93f1ddf'); }
+        .i-crosswind { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460173343444566036/Screenshot_2026-01-12_082331.png?ex=6965f3e5&is=6964a265&hm=51ddf0553843c5707a88fe16313e4935d1e096b4ff6fda6bc8b9473c4cbf8e40'); }
+        .i-lowvis { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460173344052744305/Screenshot_2026-01-12_082436.png?ex=6965f3e5&is=6964a265&hm=c0c54cf6596a3b9f67ffbe26494f30a362a3f01835e8fa844ae96e6d97e1b4a0'); }
+        .i-winter { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460173343016620168/image.png?ex=6965f3e5&is=6964a265&hm=cc6b90f66523d5484f1b04253e64d1644e88324c2e79237142b27bd6b43c08fd'); }
+        .i-ana380 { background-image: url('https://media.discordapp.net/attachments/1004038992427237436/1459509082934480990/image.png?ex=69658381&is=69643201&hm=73ee576cf03d9210e90d81927486d19af086ba325fa58a496523afff1fccb32c'); }
+        .i-sunrise { background-image: url('https://media.discordapp.net/attachments/1004038992427237436/1454040050860818444/image.png?ex=69656492&is=69641312&hm=86b448171a7e233a95514f8b721512d83686adc68fdfead3951c49a36fc0a6ae'); }
+        .i-vent { background-image: url('https://media.discordapp.net/attachments/1004038992427237436/1449769601436221651/image.png?ex=6965ad68&is=69645be8&hm=3cd9741fa49b60556efcce3d5f41785add8f31cb1a00ebbad9e7d9350fa611dc'); }
+        .i-overhead { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460168759921742036/image.png?ex=6965efa0&is=69649e20&hm=a405ebdc254a554e4424e80280b2c9f757800f9115b372ffcbab5354371e4255'); }
+        .i-nose { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460168761134022778/image.png?ex=6965efa1&is=69649e21&hm=a4865d349ed5edee3289fad9b0faedc7dc92caf6fec55ba6680695da603c8b49'); }
+        .i-bremenout { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180454979276976/image.png?ex=6965fa85&is=6964a905&hm=f04538cc841050d4aacb45b4a73ee45a14dd085e1f1b7871a8bf2311ca9a4c54'); }
+        .i-bremen2 { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180518086901760/Screenshot_2026-01-12_085427.png?ex=6965fa94&is=6964a914&hm=e62c998636e739b3575049c8ed60bec29b519de2b7f280c5a78ca76ed8ec0e41'); }
+        .i-deboard { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180518682497255/Screenshot_2026-01-12_085358.png?ex=6965fa94&is=6964a914&hm=d0baabef853b677ae4f0217f36c965beea6a4c27a8c95263d88f692221e16d5e'); }
+        .i-pdc { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180833783648433/Screenshot_2025-12-21_160610.png?ex=6965fadf&is=6964a95f&hm=8fbf008a30757f6ec70803d15c56786c1bfd35d6b56c61d3d261ab29a3e9b26d'); }
+        .i-330 { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180834219982993/Screenshot_2025-12-21_142141.png?ex=6965fadf&is=6964a95f&hm=dfb6a853b50779059c86f3aa7b71d259a52604dae2a718b5dd09eb21b95126ff'); }
+        .i-atc { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180835713155113/Screenshot_2025-12-15_181437.png?ex=6965fae0&is=6964a960&hm=0f19b76a296a36a4d5f839189b860363012af0d41777c7238248505e957497d6'); }
+        .i-load { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180834970501271/Screenshot_2025-12-21_143340.png?ex=6965fadf&is=6964a95f&hm=366733c46f4ce085c52f3c90ad8bfe37a60ce511641ae2826ee1d08005226627'); }
+
+        @keyframes zoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+        .do-zoom { animation: zoom 10s linear infinite alternate; }
+
+        #grid {
+            position: absolute; width: 100%; height: 100%; display: none;
+            grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+            gap: 10px; padding: 10px; box-sizing: border-box; background: black; z-index: 50;
+        }
+        .grid-item { background-size: cover; background-position: center; border: 4px solid var(--willi-blue); }
+
+        .txt-wrap { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 100; pointer-events: none; }
+        #text { font-size: 160px; color: var(--willi-yellow); text-align: center; line-height: 0.8; display: none; text-shadow: 10px 10px 0 black; }
+        @keyframes slam { 0% { transform: scale(5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .do-slam { animation: slam 0.2s cubic-bezier(.17,.67,.29,1.5) forwards; }
+        #flash { position: absolute; width: 100%; height: 100%; background: white; opacity: 0; z-index: 200; mix-blend-mode: overlay; }
+        .do-flash { animation: flashAnim 0.15s forwards; }
+        @keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div id="stage">
+    <div id="flash"></div>
+    <div id="sc-sunrise" class="img-asset i-sunrise do-zoom"></div>
+    <div id="sc-bremenout" class="img-asset i-bremenout do-zoom"></div>
+    <div id="sc-atc" class="img-asset i-atc do-zoom"></div>
+    <div id="sc-fmc" class="img-asset i-fmc do-zoom"></div>
+    <div id="sc-dance" class="img-asset i-dance do-zoom"></div>
+    <div id="sc-crosswind" class="img-asset i-crosswind do-zoom"></div>
+    <div id="sc-lowvis" class="img-asset i-lowvis do-zoom"></div>
+    <div id="sc-winter" class="img-asset i-winter do-zoom"></div>
+    <div id="sc-pdc" class="img-asset i-pdc do-zoom"></div>
+    <div id="sc-330" class="img-asset i-330 do-zoom"></div>
+    <div id="sc-load" class="img-asset i-load do-zoom"></div>
+    <div id="sc-vent" class="img-asset i-vent do-zoom"></div>
+    <div id="sc-deboard" class="img-asset i-deboard do-zoom"></div>
+    <div id="sc-nose" class="img-asset i-nose do-zoom"></div>
+
+    <div id="grid">
+        <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
+        <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
+        <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
+    </div>
+    <div class="txt-wrap"><div id="text"></div></div>
+</div>
+
+<script>
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const txt = document.getElementById('text');
+    const flash = document.getElementById('flash');
+    const grid = document.getElementById('grid');
+    const gItems = document.querySelectorAll('.grid-item');
+    const imgClasses = ['i-fmc', 'i-dance', 'i-crosswind', 'i-lowvis', 'i-winter', 'i-ana380', 'i-sunrise', 'i-vent', 'i-bremenout', 'i-pdc', 'i-330', 'i-atc', 'i-load', 'i-deboard'];
+
+    function hide() {
+        document.querySelectorAll('.img-asset').forEach(s => s.style.display = 'none');
+        grid.style.display = 'none'; txt.style.display = 'none';
+        txt.classList.remove('do-rgb');
+    }
+
+    async function slam(content, dur, isRgb = false) {
+        txt.innerHTML = content; txt.style.display = 'block';
+        txt.classList.remove('do-slam'); void txt.offsetWidth; txt.classList.add('do-slam');
+        if(isRgb) txt.classList.add('do-rgb');
+        flash.classList.remove('do-flash'); void flash.offsetWidth; flash.classList.add('do-flash');
+        await sleep(dur);
+    }
+
+    async function gridRave(iters, gap) {
+        grid.style.display = 'grid';
+        for(let i=0; i<iters; i++) {
+            gItems.forEach(item => { item.className = 'grid-item ' + imgClasses[Math.floor(Math.random()*imgClasses.length)]; });
+            await sleep(gap);
+        }
+    }
+
+    async function start() {
+        hide(); document.getElementById('sc-sunrise').style.display = 'block';
+        await slam("SALAMANDER", 2000, true);
+        hide(); document.getElementById('sc-bremenout').style.display = 'block';
+        await slam("WILLS WISSEN!", 3000, true);
+        hide(); document.getElementById('sc-atc').style.display = 'block';
+        await slam("WAS MACHT DER DA?", 3000);
+
+        const questions = [
+            {id:'sc-fmc', t:"WAS SIND DAS<br>FÜR KNÖPFE?"},
+            {id:'sc-dance', t:"WARUM TANZEN<br>DIE DA?"},
+            {id:'sc-crosswind', t:"WIE LANDET<br>MAN SO?"},
+            {id:'sc-lowvis', t:"SIEHST DU<br>ÜBERHAUPT WAS?"},
+            {id:'sc-pdc', t:"WAS STEHT DA<br>GESCHRIEBEN?"}
+        ];
+        for(let q of questions) {
+            hide(); document.getElementById(q.id).style.display = 'block';
+            await slam(q.t, 5000);
+        }
+
+        hide(); document.getElementById('sc-330').style.display = 'block';
+        await slam("NULL PROBLEMO!", 4000, true);
+        hide(); document.getElementById('sc-vent').style.display = 'block';
+        await slam("ERSTMAL<br>STOẞLÜFTEN!", 5000);
+        
+        await gridRave(30, 80);
+        await slam("WIR FINDENS RAUS!", 3000, true);
+        
+        hide(); document.getElementById('sc-nose').style.display = 'block';
+        await slam("<span style='font-size:180px; color:var(--willi-red);'>SALAMANDER</span><br><span style='font-size:70px; color:white;'>JETZT LIVE IM COCKPIT</span>", 10000, true);
+    }
+    window.onload = start;
+</script>
+</body>
+</html>
