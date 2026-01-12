@@ -2,38 +2,49 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>SALAMANDER - 1:26 MIN FIX (V17)</title>
+    <title>SALAMANDER - THE 1:26 MIN MONSTER UNKUT (V19)</title>
     <style>
+        /* ========================================================= */
+        /* --- VOLLER V8/V17 STYLE-BLOCK --- */
+        /* ========================================================= */
         :root {
-            --willi-yellow: #fff200; --willi-blue: #0054a6; --willi-red: #e30613;
-            --border-neon: #00ffff; --bg: #1a1a1a;
+            --willi-yellow: #fff200;
+            --willi-blue: #0054a6;
+            --willi-red: #e30613;
+            --border-neon: #00ffff;
+            --bg-dark: #1a1a1a;
         }
 
         body, html {
-            margin: 0; padding: 0; width: 1920px; height: 1080px;
-            background: var(--bg); overflow: hidden;
-            font-family: "Arial Black", "Impact", sans-serif; text-transform: uppercase;
-            <audio id="bg-music" src="https://drive.google.com/file/d/1yNF_sAiPWoNGAViNbQPyqq6IE_de9jV8/view?usp=sharing"></audio>
+            margin: 0; padding: 0;
+            width: 1920px; height: 1080px;
+            background: var(--bg-dark);
+            overflow: hidden;
+            font-family: "Arial Black", "Impact", sans-serif;
+            text-transform: uppercase;
         }
 
         #stage {
             position: relative; width: 100%; height: 100%;
-            border: 15px solid var(--willi-blue); box-sizing: border-box;
-            overflow: hidden;
+            border: 15px solid var(--willi-blue);
+            box-sizing: border-box; overflow: hidden;
         }
 
-        @keyframes shake { 0%, 100% { transform: translate(0,0); } 20% { transform: translate(-10px,5px); } 40% { transform: translate(10px,-5px); } }
-        .do-shake { animation: shake 0.1s infinite; }
-        
-        @keyframes rgb { 0% { text-shadow: -5px 0 var(--willi-red), 5px 0 var(--border-neon); } 100% { text-shadow: -10px 0 var(--willi-red), 10px 0 var(--border-neon); } }
-        .do-rgb { animation: rgb 0.1s infinite alternate; }
 
+
+        @keyframes rgbSplit {
+            0% { filter: contrast(1.5); text-shadow: -6px 0 var(--willi-red), 6px 0 var(--border-neon); }
+            100% { filter: contrast(1.8); text-shadow: -12px 0 var(--willi-red), 12px 0 var(--border-neon); }
+        }
+        .do-rgb { animation: rgbSplit 0.1s infinite alternate; }
+
+        /* --- BILDER DATENBANK (ALLE 17 LINKS) --- */
         .img-asset {
-            width: 100%; height: 100%; background-size: cover; background-position: center;
+            width: 100%; height: 100%;
+            background-size: cover; background-position: center;
             position: absolute; top: 0; left: 0; display: none;
         }
-        
-        /* REPARIERTE BILDER-LINKS */
+
         .i-fmc { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460173344388284593/Screenshot_2026-01-12_082246.png?ex=6965f3e6&is=6964a266&hm=558d6fe2c627a1cb85c816d3f5b8f87a897dbd195e2b597359915b998a2d31b1'); }
         .i-dance { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460174429643608134/image.png?ex=6965f4e8&is=6964a368&hm=116a73e636e9263898d2437e679a4ff3aa43c81657c97cdc498a2748a93f1ddf'); }
         .i-crosswind { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460173343444566036/Screenshot_2026-01-12_082331.png?ex=6965f3e5&is=6964a265&hm=51ddf0553843c5707a88fe16313e4935d1e096b4ff6fda6bc8b9473c4cbf8e40'); }
@@ -52,9 +63,10 @@
         .i-atc { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180835713155113/Screenshot_2025-12-15_181437.png?ex=6965fae0&is=6964a960&hm=0f19b76a296a36a4d5f839189b860363012af0d41777c7238248505e957497d6'); }
         .i-load { background-image: url('https://media.discordapp.net/attachments/1221606844418490419/1460180834970501271/Screenshot_2025-12-21_143340.png?ex=6965fadf&is=6964a95f&hm=366733c46f4ce085c52f3c90ad8bfe37a60ce511641ae2826ee1d08005226627'); }
 
-        @keyframes zoom { from { transform: scale(1); } to { transform: scale(1.1); } }
-        .do-zoom { animation: zoom 10s linear infinite alternate; }
+        @keyframes kenBurns { from { transform: scale(1); } to { transform: scale(1.15); } }
+        .do-kb { animation: kenBurns 10s linear infinite alternate; }
 
+        /* --- DAS 9ER GRID --- */
         #grid {
             position: absolute; width: 100%; height: 100%; display: none;
             grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
@@ -62,39 +74,48 @@
         }
         .grid-item { background-size: cover; background-position: center; border: 4px solid var(--willi-blue); }
 
+        /* --- TEXTE --- */
         .txt-wrap { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 100; pointer-events: none; }
-        #text { font-size: 160px; color: var(--willi-yellow); text-align: center; line-height: 0.8; display: none; text-shadow: 10px 10px 0 black; }
+        #text { font-size: 180px; color: var(--willi-yellow); text-align: center; line-height: 0.8; display: none; text-shadow: 10px 10px 0 black; }
         @keyframes slam { 0% { transform: scale(5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .do-slam { animation: slam 0.2s cubic-bezier(.17,.67,.29,1.5) forwards; }
-        #flash { position: absolute; width: 100%; height: 100%; background: white; opacity: 0; z-index: 200; mix-blend-mode: overlay; }
+
+        #flash { position: absolute; width: 100%; height: 100%; background: white; opacity: 0; z-index: 500; mix-blend-mode: overlay; }
         .do-flash { animation: flashAnim 0.15s forwards; }
         @keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
     </style>
 </head>
-<body>
+<body onclick="startAudio()">
+
+<audio id="bg-music" loop>
+    <source src="https://cdn.discordapp.com/attachments/1221606844418490419/1460182608980869206/Untitled.mp3?ex=6965fc86&is=6964ab06&hm=e5e7566824a6c7e8a26fabebef00a3998cf3ca85f3a520cf9b07915c839d6d93&" type="audio/mpeg">
+</audio>
 
 <div id="stage">
     <div id="flash"></div>
-    <div id="sc-sunrise" class="img-asset i-sunrise do-zoom"></div>
-    <div id="sc-bremenout" class="img-asset i-bremenout do-zoom"></div>
-    <div id="sc-atc" class="img-asset i-atc do-zoom"></div>
-    <div id="sc-fmc" class="img-asset i-fmc do-zoom"></div>
-    <div id="sc-dance" class="img-asset i-dance do-zoom"></div>
-    <div id="sc-crosswind" class="img-asset i-crosswind do-zoom"></div>
-    <div id="sc-lowvis" class="img-asset i-lowvis do-zoom"></div>
-    <div id="sc-winter" class="img-asset i-winter do-zoom"></div>
-    <div id="sc-pdc" class="img-asset i-pdc do-zoom"></div>
-    <div id="sc-330" class="img-asset i-330 do-zoom"></div>
-    <div id="sc-load" class="img-asset i-load do-zoom"></div>
-    <div id="sc-vent" class="img-asset i-vent do-zoom"></div>
-    <div id="sc-deboard" class="img-asset i-deboard do-zoom"></div>
-    <div id="sc-nose" class="img-asset i-nose do-zoom"></div>
+    
+    <div id="sc-sunrise" class="img-asset i-sunrise do-kb"></div>
+    <div id="sc-bremenout" class="img-asset i-bremenout do-kb"></div>
+    <div id="sc-atc" class="img-asset i-atc do-kb"></div>
+    <div id="sc-fmc" class="img-asset i-fmc do-kb"></div>
+    <div id="sc-dance" class="img-asset i-dance do-kb"></div>
+    <div id="sc-crosswind" class="img-asset i-crosswind do-kb"></div>
+    <div id="sc-lowvis" class="img-asset i-lowvis do-kb"></div>
+    <div id="sc-winter" class="img-asset i-winter do-kb"></div>
+    <div id="sc-pdc" class="img-asset i-pdc do-kb"></div>
+    <div id="sc-330" class="img-asset i-330 do-kb"></div>
+    <div id="sc-load" class="img-asset i-load do-kb"></div>
+    <div id="sc-vent" class="img-asset i-vent do-kb"></div>
+    <div id="sc-deboard" class="img-asset i-deboard do-kb"></div>
+    <div id="sc-nose" class="img-asset i-nose do-kb"></div>
+    <div id="sc-overhead" class="img-asset i-overhead do-kb"></div>
 
     <div id="grid">
         <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
         <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
         <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
     </div>
+
     <div class="txt-wrap"><div id="text"></div></div>
 </div>
 
@@ -102,20 +123,25 @@
     const sleep = ms => new Promise(r => setTimeout(r, ms));
     const txt = document.getElementById('text');
     const flash = document.getElementById('flash');
+    const stage = document.getElementById('stage');
     const grid = document.getElementById('grid');
     const gItems = document.querySelectorAll('.grid-item');
-    const imgClasses = ['i-fmc', 'i-dance', 'i-crosswind', 'i-lowvis', 'i-winter', 'i-ana380', 'i-sunrise', 'i-vent', 'i-bremenout', 'i-pdc', 'i-330', 'i-atc', 'i-load', 'i-deboard'];
+    const music = document.getElementById('bg-music');
+    
+    const imgClasses = ['i-fmc', 'i-dance', 'i-crosswind', 'i-lowvis', 'i-winter', 'i-ana380', 'i-sunrise', 'i-vent', 'i-bremenout', 'i-pdc', 'i-330', 'i-atc', 'i-load', 'i-deboard', 'i-overhead'];
+
+    let audioRunning = false;
+    function startAudio() { if(!audioRunning) { music.play(); audioRunning = true; } }
 
     function hide() {
         document.querySelectorAll('.img-asset').forEach(s => s.style.display = 'none');
         grid.style.display = 'none'; txt.style.display = 'none';
-        txt.classList.remove('do-rgb');
     }
 
     async function slam(content, dur, isRgb = false) {
         txt.innerHTML = content; txt.style.display = 'block';
         txt.classList.remove('do-slam'); void txt.offsetWidth; txt.classList.add('do-slam');
-        if(isRgb) txt.classList.add('do-rgb');
+        if(isRgb) txt.classList.add('do-rgb'); else txt.classList.remove('do-rgb');
         flash.classList.remove('do-flash'); void flash.offsetWidth; flash.classList.add('do-flash');
         await sleep(dur);
     }
@@ -129,46 +155,44 @@
     }
 
     async function start() {
-    const music = document.getElementById('bg-music');
-
-    // Browser blockieren Autoplay oft, daher startet es beim ersten Klick
-    document.body.onclick = () => {
-        music.play();
-        runAnimation(); // Wir starten die Logik erst nach Klick
-    };
-
-    // Oder falls der Browser es erlaubt, direkt:
-    music.play().catch(() => console.log("Klick auf die Seite zum Starten!"));
-        hide(); document.getElementById('sc-sunrise').style.display = 'block';
-        await slam("SALAMANDER", 2000, true);
+        hide();
+        // --- 0-10s: INTRO ---
+        document.getElementById('sc-sunrise').style.display = 'block';
+        await slam("SALAMANDER", 2500, true);
         hide(); document.getElementById('sc-bremenout').style.display = 'block';
-        await slam("WILLS WISSEN!", 3000, true);
-        hide(); document.getElementById('sc-atc').style.display = 'block';
-        await slam("WAS MACHT DER DA?", 3000);
+        await slam("WILLS WISSEN!", 3500, true);
 
-        const questions = [
-            {id:'sc-fmc', t:"WAS SIND DAS<br>FÜR KNÖPFE?"},
-            {id:'sc-dance', t:"WARUM TANZEN<br>DIE DA?"},
-            {id:'sc-crosswind', t:"WIE LANDET<br>MAN SO?"},
-            {id:'sc-lowvis', t:"SIEHST DU<br>ÜBERHAUPT WAS?"},
-            {id:'sc-pdc', t:"WAS STEHT DA<br>GESCHRIEBEN?"}
+        // --- 10-40s: WILLI FRAGEN ---
+        const q1 = [
+            {id:'sc-fmc', t:"WAS SIND DAS<br>FÜR KNÖPFE?", d:5000},
+            {id:'sc-dance', t:"WARUM TANZEN<br>DIE DA?", d:5000},
+            {id:'sc-crosswind', t:"WIE LANDET<br>MAN SO?", d:5000},
+            {id:'sc-lowvis', t:"SIEHST DU<br>ÜBERHAUPT WAS?", d:5000},
+            {id:'sc-atc', t:"WAS WOLLEN<br>DIE VON MIR?", d:5000}
         ];
-        for(let q of questions) {
-            hide(); document.getElementById(q.id).style.display = 'block';
-            await slam(q.t, 5000);
-        }
+        for(let s of q1) { hide(); document.getElementById(s.id).style.display = 'block'; await slam(s.t, s.d); }
 
-        hide(); document.getElementById('sc-330').style.display = 'block';
-        await slam("NULL PROBLEMO!", 4000, true);
-        hide(); document.getElementById('sc-vent').style.display = 'block';
-        await slam("ERSTMAL<br>STOẞLÜFTEN!", 5000);
-        
-        await gridRave(30, 80);
-        await slam("WIR FINDENS RAUS!", 3000, true);
-        
+        // --- 40-55s: GRID CHAOS ---
+        await gridRave(30, 100);
+        await slam("TOTALES CHAOS!", 3000, true);
+
+        // --- 55-80s: ALF TECHNIK CHECK ---
+        const q2 = [
+            {id:'sc-330', t:"NULL PROBLEMO!", d:4000},
+            {id:'sc-pdc', t:"ICH KANN<br>NICHT LESEN!", d:4000},
+            {id:'sc-vent', t:"ERSTMAL<br>STOẞLÜFTEN!", d:5000},
+            {id:'sc-load', t:"ALLES VIEL<br>ZU SCHWER!", d:4000},
+            {id:'sc-deboard', t:"JETZT REICHTS:<br>ALLE RAUS!", d:4000}
+        ];
+        for(let s of q2) { hide(); document.getElementById(s.id).style.display = 'block'; await slam(s.t, s.d); }
+
+        // --- 80-86s: FINALE ---
+        await gridRave(40, 50);
+        await slam("WIR FINDENS RAUS!", 2500, true);
         hide(); document.getElementById('sc-nose').style.display = 'block';
-        await slam("<span style='font-size:180px; color:var(--willi-red);'>SALAMANDER</span><br><span style='font-size:70px; color:white;'>JETZT LIVE IM COCKPIT</span>", 10000, true);
+        await slam("<span style='font-size:180px; color:var(--willi-red);'>SALAMANDER</span><br><span style='font-size:80px; color:white;'>JETZT LIVE IM COCKPIT</span>", 10000, true);
     }
+
     window.onload = start;
 </script>
 </body>
