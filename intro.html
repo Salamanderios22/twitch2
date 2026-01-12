@@ -13,6 +13,7 @@
             margin: 0; padding: 0; width: 1920px; height: 1080px;
             background: var(--bg); overflow: hidden;
             font-family: "Arial Black", "Impact", sans-serif; text-transform: uppercase;
+            <audio id="bg-music" src="https://drive.google.com/file/d/1yNF_sAiPWoNGAViNbQPyqq6IE_de9jV8/view?usp=sharing"></audio>
         }
 
         #stage {
@@ -128,6 +129,16 @@
     }
 
     async function start() {
+    const music = document.getElementById('bg-music');
+
+    // Browser blockieren Autoplay oft, daher startet es beim ersten Klick
+    document.body.onclick = () => {
+        music.play();
+        runAnimation(); // Wir starten die Logik erst nach Klick
+    };
+
+    // Oder falls der Browser es erlaubt, direkt:
+    music.play().catch(() => console.log("Klick auf die Seite zum Starten!"));
         hide(); document.getElementById('sc-sunrise').style.display = 'block';
         await slam("SALAMANDER", 2000, true);
         hide(); document.getElementById('sc-bremenout').style.display = 'block';
